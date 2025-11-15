@@ -16,23 +16,15 @@ library(stringr)
 
 #load all data
 #load all inat records
-cicada <- read_csv("30-7-25_cicadas_inat.csv")
+cicada <- read_csv("data/30-7-25_cicadas_inat.csv")
 
 #load all specimen data from ALA
-cicada_spec_0 <- read_csv("specimens/31-7-25_cicadas_specimens.csv")
-
-#load in norfolk specimens, that had to be a separate csv due to how the ALA labels the island (not assigned a state or territory name in ALA for some reason)
-norfolk <- read_csv("specimens/norfolk_specimens.csv")
+cicada_spec_0 <- read_csv("data/31-7-25_cicadas_specimens.csv")
 
 
 #get rid of extra-Australian specimen records that have been incorrectly geocoordinated but still appear in download due to assigned state/territory name
 cicada_spec <- cicada_spec_0 %>%
   filter(decimalLongitude >= 105 & decimalLongitude <= 160 & decimalLatitude<=-9)
-
-
-#append norfolk island records to specimen file 
-cicada_spec <- rbind(cicada_spec, norfolk)
-
 
 
 #remove records with coordinate uncertainty 50,000 m or greater
@@ -517,7 +509,7 @@ ggplot2::ggplot() +
 
 #first read in Australian Faunal Directory (AFD) cicada names and do some organisation
 
-taxonomy <- read_csv("afd_taxa_31-7-25.csv")
+taxonomy <- read_csv("data/afd_taxa_31-7-25.csv")
 
 taxonomy2 <- taxonomy %>%
   filter(NAME_TYPE == "Valid Name")
